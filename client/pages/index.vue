@@ -1,20 +1,17 @@
 <template>
-  <div class="flex flex-col items-center justify-center">
-    <h1 class="text-5xl font-bold">
-      Chat Room
-    </h1>
-    <p>Username: {{ username }}</p>
-    <p>Online: {{ users.length }}</p>
+  <div class="flex w-screen h-screen">
+    <Users :username="username" :users="users" />
     <ChatRoom :messages="messages" />
   </div>
 </template>
 
 <script>
 import io from 'socket.io-client'
+import Users from '~/components/Users'
 import ChatRoom from '~/components/ChatRoom'
 
 export default {
-  components: { ChatRoom },
+  components: { Users, ChatRoom },
   data () {
     return {
       username: '',
@@ -25,7 +22,7 @@ export default {
     }
   },
   mounted () {
-    this.username = prompt('What is your username?', 'Anon')
+    // this.username = prompt('What is your username?', 'Anon')
     this.username = this.username === '' ? 'Anonymous' : this.username
 
     this.joinServer()
@@ -57,3 +54,9 @@ export default {
   }
 }
 </script>
+
+<style>
+  .container {
+    width: 100vw;
+  }
+</style>
