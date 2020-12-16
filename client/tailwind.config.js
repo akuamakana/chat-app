@@ -5,7 +5,7 @@ module.exports = {
   },
   purge: [],
   theme: {
-    extend: {}
+    extend: { opacity: ['disabled'] }
   },
   variants: {},
   plugins: []

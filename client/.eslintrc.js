@@ -14,5 +14,5 @@ module.exports = {
   plugins: [
   ],
   // add your custom rules here
-  rules: {}
+  rules: { 'vue/require-prop-types': 0 }
 }

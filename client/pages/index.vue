@@ -1,18 +1,20 @@
 <template>
-  <div class="">
-    <h1>Chat room</h1>
+  <div class="flex flex-col items-center justify-center">
+    <h1 class="text-5xl font-bold">
+      Chat Room
+    </h1>
     <p>Username: {{ username }}</p>
     <p>Online: {{ users.length }}</p>
-    <button @click="testButton">
-      I'm a testButton
-    </button>
+    <ChatRoom :messages="messages" />
   </div>
 </template>
 
 <script>
 import io from 'socket.io-client'
+import ChatRoom from '~/components/ChatRoom'
 
 export default {
+  components: { ChatRoom },
   data () {
     return {
       username: '',
@@ -31,13 +33,26 @@ export default {
   methods: {
     joinServer () {
       this.socket.on('loggedIn', (data) => {
-        this.messages = data.messages
+        // this.messages = data.messages
         this.users = data.users
         this.socket.emit('newuser', this.username)
+
+        this.listen()
       })
     },
-    testButton () {
-      this.socket.emit('testButton', 'I\'m a test button')
+    listen () {
+      this.socket.on('userOnline', (user) => {
+        this.users.push(user)
+      })
+      this.socket.on('userLeft', (user) => {
+        this.users.splice(this.users.indexOf(user, 1))
+      })
+      this.socket.on('msg', (message) => {
+        this.messages.push(message)
+      })
+    },
+    sendMessage (message) {
+      this.socket.emit('msg', message)
     }
   }
 }

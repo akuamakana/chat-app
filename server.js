@@ -27,7 +27,7 @@ io.on('connection', socket => {
   })
 
   socket.on('msg', msg => {
-    let message = {
+    const message = {
       index: index,
       username: socket.username,
       msg
@@ -38,10 +38,6 @@ io.on('connection', socket => {
     io.emit('msg', message)
 
     index++
-  })
-
-  socket.on('testButton', message => {
-    console.log(message)
   })
 
   // Disconnect
