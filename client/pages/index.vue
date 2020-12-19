@@ -22,7 +22,7 @@ export default {
     }
   },
   mounted () {
-    // this.username = prompt('What is your username?', 'Anon')
+    this.username = prompt('What is your username?', 'Anon')
     this.username = this.username === '' ? 'Anonymous' : this.username
 
     this.joinServer()
